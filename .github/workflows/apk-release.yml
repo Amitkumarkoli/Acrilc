@@ -16,7 +16,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16.3' 
+          flutter-version: '3.16.3'
 
       - name: Install dependencies
         run: flutter pub get
@@ -24,10 +24,14 @@ jobs:
       - name: Build release APK
         run: flutter build apk --release
 
-      - name: Upload APK to GitHub Release
+      - name: Create GitHub Release and Upload APK
         uses: ncipollo/release-action@v1
         with:
           artifacts: build/app/outputs/flutter-apk/app-release.apk
           tag: latest
           name: Latest Acrilc APK
+          body: |
+            ✅ This is the latest build of the Acrilc app.
+            📦 Download the APK below and install it on your Android device.
           allowUpdates: true
+          generateReleaseNotes: true

@@ -26,7 +26,7 @@ Follow these steps to run the project locally:
 - [ ] **Clone the Repository**
 
 ```bash
-git clone https://github.com/abhay2133/acrilc.git
+git clone https://github.com/Amitkumarkoli/Acrilc.git
 cd acrilc
 ```
 
