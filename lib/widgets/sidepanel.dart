@@ -67,15 +67,33 @@ class _SidePanelState extends State<SidePanel> {
           child: Flex(
             direction: Axis.vertical,
             children: [
+               listItem("Profile", () {
+                Navigator.pop(context);
+                context.push("/profile");
+              }),
               listItem("Settings", () {
                 Navigator.pop(context);
                 context.push("/settings");
+              }),
+               listItem("Support", () {
+               alert(context, "Stay tuned", title: "Coming soon");
+              }),
+               listItem("Dashboard", () {
+                Navigator.pop(context);
+                context.push("/dashboard");
+              }),
+              listItem("Analytics", () {
+                alert(context, "Stay tuned", title: "Coming soon");
+              }),
+              listItem("Discovery", () {
+                Navigator.pop(context);
+                context.push("/discovery");
               }),
               listItem("Moodboard", () {
                 Navigator.pop(context);
                 context.push("/moodboard/amit");
               }),
-              listItem("Analytics", () {
+               listItem("Cookie", () {
                 alert(context, "Stay tuned", title: "Coming soon");
               }),
               listItem("Logout", () {
