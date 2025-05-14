@@ -1,311 +1,368 @@
+import 'package:acrilc/constants/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:acrilc/constants/colors.dart';
+import 'package:shimmer/shimmer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = AppThemes.lightTheme;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Search Bar
-            TextField(
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: "Search art, artists, collections",
-                hintStyle: textTheme.bodyMedium,
-                filled: true,
-                fillColor: Theme.of(context).cardColor,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Filters
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FilterChip(
-                  label: Row(
-                    children: [
-                      Text("All Types", style: textTheme.bodyMedium),
-                      const Icon(Icons.arrow_drop_down, size: 12),
-                    ],
-                  ),
-                  onSelected: (_) {},
-                ),
-                FilterChip(
-                  label: Row(
-                    children: [
-                      Text("All Styles", style: textTheme.bodyMedium),
-                      const Icon(Icons.arrow_drop_down, size: 12),
-                    ],
-                  ),
-                  onSelected: (_) {},
-                ),
-                FilterChip(
-                  label: Row(
-                    children: [Text("Mood Board", style: textTheme.bodyMedium)],
-                  ),
-                  onSelected: (_) {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-
-            // Profile Avatars Row
-            SizedBox(
-              height: 50,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: 7,
-                separatorBuilder: (_, __) => const SizedBox(width: 8),
-                itemBuilder:
-                    (_, i) => CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        'https://i.pravatar.cc/150?img=$i',
-                      ),
-                      radius: 24,
-                    ),
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            // Artwork cards
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  const SizedBox(width: 16),
-                  _buildArtworkCard(
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1597434575180-3b807c0e6ba9',
-                    title: 'Abstract Art',
-                    artist: 'By Mandy',
-                    context: context,
-                  ),
-                  const SizedBox(width: 12),
-                  _buildArtworkCard(
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1597434575180-3b807c0e6ba9',
-                    title: 'Abstract Art',
-                    artist: 'By John',
-                    context: context,
-                  ),
-                  const SizedBox(width: 12),
-                  _buildArtworkCard(
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1545235617-9465d2a556c1',
-                    title: 'Abstract Art',
-                    artist: 'By Mandy',
-                    context: context,
-                  ),
-                  const SizedBox(width: 12),
-                  _buildArtworkCard(
-                    imageUrl:
-                        'https://images.unsplash.com/photo-1572786413899-e6c99d41b5ae',
-                    title: 'Abstract Art',
-                    artist: 'By John',
-                    context: context,
-                  ),
-                  const SizedBox(width: 16),
-                ],
-              ),
-            ),
-            const SizedBox(height: 24),
-
-            // Relevant Post
-            Text("Relevant Posts", style: textTheme.headlineMedium),
-            const SizedBox(height: 12),
-
-            // Post 1
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 18,
-                  backgroundImage: NetworkImage(
-                    'https://randomuser.me/api/portraits/women/44.jpg',
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text("Lidia Roberts", style: textTheme.headlineSmall),
-                        const SizedBox(width: 4),
-                        const Icon(
-                          Icons.more_horiz,
-                          size: 18,
-                          color: Colors.grey,
-                        ), // 3-dot icon beside the name
-                      ],
-                    ),
-                    Text("1d", style: textTheme.titleMedium),
-                  ],
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 8),
-            Text(
-              "Just listed a few new pieces on my website, check them out!",
-              style: textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Expanded(
-                  child: Image.network(
-                    'https://picsum.photos/id/1013/300/150',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Column(
-                    children: [
-                      Image.network('https://picsum.photos/id/1014/150/80'),
-                      const SizedBox(height: 4),
-                      Image.network('https://picsum.photos/id/1015/150/80'),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Chip(label: Text("Applause", style: textTheme.bodyMedium)),
-                Chip(label: Text("Comment", style: textTheme.bodyMedium)),
-                Chip(label: Text("Appreciate", style: textTheme.bodyMedium)),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            // Post 2
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 18,
-                  backgroundImage: NetworkImage(
-                    'https://randomuser.me/api/portraits/women/44.jpg',
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text("Owen Chu", style: textTheme.headlineSmall),
-                        const SizedBox(width: 4),
-                        const Icon(
-                          Icons.more_horiz,
-                          size: 18,
-                          color: Colors.grey,
-                        ), // 3-dot icon beside the name
-                      ],
-                    ),
-                    Text("1d", style: textTheme.titleMedium),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text("Having the best time in Vegas", style: textTheme.bodyMedium),
-            const SizedBox(height: 8),
-            Image.network('https://picsum.photos/id/1016/300/200'),
-            const SizedBox(height: 8),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Chip(label: Text("Applause", style: textTheme.bodyMedium)),
-                Chip(label: Text("Comment", style: textTheme.bodyMedium)),
-                Chip(label: Text("Appreciate", style: textTheme.bodyMedium)),
-              ],
-            ),
-            const SizedBox(height: 24),
-
-            // New Arrivals Section
-            Text("New Arrivals", style: textTheme.headlineMedium),
-            const SizedBox(height: 8),
-            Text(
-              "Explore a collection of new arrivals that are the perfect blend of modern and classic design.",
-              style: textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text("Explore New Arrivals"),
-            ),
-            const SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: Image.network('https://picsum.photos/id/1019/150/150'),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Image.network('https://picsum.photos/id/1020/150/150'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-          ],
-        ),
+    return Theme(
+      data: theme,
+      child: Scaffold(
+        backgroundColor: theme.scaffoldBackgroundColor ?? Colors.white,
+        body: _isLoading ? _buildShimmer(theme) : _buildContent(theme),
       ),
     );
   }
 
-  Widget _buildArtworkCard({
-    required String imageUrl,
-    required String title,
-    required String artist,
-    required BuildContext context,
+  Widget _buildShimmer(ThemeData theme) {
+    return ListView(
+      padding: const EdgeInsets.all(12),
+      children: List.generate(10, (index) {
+        return Shimmer.fromColors(
+          baseColor: Colors.grey.shade300,
+          highlightColor: Colors.grey.shade100,
+          child: Container(
+            height: 100,
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
+  Widget _buildContent(ThemeData theme) {
+    return ListView(
+      padding: const EdgeInsets.all(12),
+      children: [
+        // Search Bar
+        TextField(
+          style: theme.textTheme.bodyMedium,
+          decoration: InputDecoration(
+            hintText: 'Search art, artists, collections',
+            hintStyle: theme.textTheme.bodyMedium?.copyWith(
+              color: Colors.black38,
+            ),
+            prefixIcon: const Icon(Icons.search, color: Colors.black45),
+            filled: true,
+            fillColor: theme.cardColor,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide.none,
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        // Filter Chips
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _buildFilterChip('For You', theme, showArrow: true),
+              const SizedBox(width: 8),
+              _buildFilterChip('Craft', theme, showArrow: true),
+              const SizedBox(width: 8),
+              _buildFilterChip('Mood Board', theme),
+              const SizedBox(width: 8),
+              _buildFilterChip('Painting', theme),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        // New Joined Row
+        _buildJoinedInviteRow(),
+
+        const SizedBox(height: 12),
+
+        // Art Cards
+        // Art Cards
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _buildHorizontalArtCard('Abstract Art\nby Avantika Singh', theme, 1),
+              const SizedBox(width: 8),
+              _buildHorizontalArtCard('Abstract Art\nby Joydeep Das', theme,2),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 12),
+
+        Center(
+          child: TextButton(
+            onPressed: () {},
+            child: Text('Read more', style: theme.textTheme.bodyMedium),
+          ),
+        ),
+        const SizedBox(height: 12),
+
+        Text('Relevant Posts', style: theme.textTheme.headlineMedium),
+        const SizedBox(height: 8),
+        buildPostsGrid(theme),
+
+        const SizedBox(height: 12),
+        Text(
+          'More Posts from the world',
+          style: theme.textTheme.headlineMedium,
+        ),
+        const SizedBox(height: 8),
+        _buildBottomPosts(),
+      ],
+    );
+  }
+
+  Widget _buildFilterChip(
+    String label,
+    ThemeData theme, {
+    bool showArrow = false,
   }) {
     return Container(
-      width: 160,
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(20), // More rounded corners
+        color: theme.cardColor,
+        borderRadius: BorderRadius.circular(20),
       ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(label, style: theme.textTheme.bodyMedium),
+          if (showArrow) ...[
+            const SizedBox(width: 4),
+            const Icon(
+              Icons.keyboard_arrow_down_rounded,
+              size: 18,
+              color: Colors.grey,
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _buildJoinedInviteRow() {
+    const int avatarCount = 6;
+    const double avatarRadius = 20;
+    const double overlapOffset = 20;
+    final double totalWidth =
+        (avatarCount - 1) * overlapOffset + (avatarRadius * 2);
+
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Avatars
+        SizedBox(
+          height: avatarRadius * 2,
+          width: totalWidth,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: List.generate(avatarCount, (index) {
+              return Positioned(
+                left: index * overlapOffset,
+                child: CircleAvatar(
+                  radius: avatarRadius,
+                  backgroundImage: NetworkImage(
+                    'https://randomuser.me/api/portraits/men/${index + 10}.jpg',
+                  ),
+                ),
+              );
+            }),
+          ),
+        ),
+
+        const SizedBox(width: 12),
+
+        // Right Column: "joined" + social icons in one row, and "Invite your friends" below
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Row for "joined" and icons
+              Row(
+                children: [
+                  const Text(
+                    "joined",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                  ),
+                  const SizedBox(width: 8),
+                  Image.network(
+                    'https://cdn-icons-png.flaticon.com/24/145/145802.png',
+                    width: 24,
+                    height: 24,
+                  ),
+                  const SizedBox(width: 8),
+                  Image.network(
+                    'https://cdn-icons-png.flaticon.com/24/145/145812.png',
+                    width: 24,
+                    height: 24,
+                  ),
+                  const SizedBox(width: 8),
+                  Image.network(
+                    'https://cdn-icons-png.flaticon.com/24/145/145807.png',
+                    width: 24,
+                    height: 24,
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              const Text(
+                "Invite your friends",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 13,
+                  color: Colors.black54,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildHorizontalArtCard(String title, ThemeData theme, dynamic index) {
+    return Container(
+      width: 160,
+      margin: const EdgeInsets.only(right: 8),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              imageUrl,
-              height: 180,
+              'https://picsum.photos/seed/${index + 1}/150/100',
+              height: 100,
               width: 160,
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+          const SizedBox(height: 4),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyMedium,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Text(artist, style: Theme.of(context).textTheme.titleMedium),
+          ElevatedButton(
+            onPressed: () {},
+            child: const Text("Order Now"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: theme.primaryColor,
+              minimumSize: const Size(100, 35),
+            ),
           ),
         ],
       ),
+    );
+  }
+
+//   Widget _buildHorizontalArtCard(String title, ThemeData theme, dynamic index) {
+//   return SizedBox(
+//     height: 200, // Set the height for horizontal scrolling
+//     child: ListView.builder(
+//       scrollDirection: Axis.horizontal,
+//       itemCount: 50, // Number of images
+//       padding: const EdgeInsets.symmetric(horizontal: 10),
+//       itemBuilder: (context, index) {
+//         return Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 5),
+//           child: ClipRRect(
+//             borderRadius: BorderRadius.circular(10),
+//             child: Image.network(
+//               'https://picsum.photos/seed/$index/200/200',
+//               width: 150,
+//               height: 150,
+//               fit: BoxFit.cover,
+//               loadingBuilder: (context, child, progress) {
+//                 if (progress == null) return child;
+//                 return const Center(child: CircularProgressIndicator());
+//               },
+//               errorBuilder: (context, error, stackTrace) =>
+//                   const Icon(Icons.error),
+//             ),
+//           ),
+//         );
+//       },
+//     ),
+//   );
+// }
+
+
+ Widget buildPostsGrid(ThemeData theme) {
+  return GridView.builder(
+    padding: const EdgeInsets.all(10),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 3, // 3 items per row
+      crossAxisSpacing: 10,
+      mainAxisSpacing: 10,
+    ),
+    itemCount: 30, // You can change this number
+    itemBuilder: (context, index) {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: Image.network(
+          'https://picsum.photos/seed/$index/200/200',
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, progress) {
+            if (progress == null) return child;
+            return const Center(child: CircularProgressIndicator());
+          },
+          errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
+        ),
+      );
+    },
+  );
+}
+
+
+  Widget _buildBottomPosts() {
+    final images = List.generate(
+      3,
+      (index) => 'https://via.placeholder.com/100x120?text=World+${index + 1}',
+    );
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children:
+          images
+              .map(
+                (img) => ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    img,
+                    width: 100,
+                    height: 120,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              )
+              .toList(),
     );
   }
 }
