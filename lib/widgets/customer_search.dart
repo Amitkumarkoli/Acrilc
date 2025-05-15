@@ -33,6 +33,7 @@ class CustomSearchBar extends StatelessWidget {
               ),
             ),
           ),
+          
         ],
       ),
     );
