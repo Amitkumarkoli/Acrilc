@@ -14,12 +14,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-        backgroundColor: AppColor.primary,
-      ),
-      body: Center(
-        child: CustomSearchBar(),
+   
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomSearchBar(),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Expanded(
+            child: ListView(
+              // This next line does the trick.
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Container(width: 160, color: Colors.red),
+                Container(width: 160, color: Colors.blue),
+                Container(width: 160, color: Colors.green),
+                Container(width: 160, color: Colors.yellow),
+                Container(width: 160, color: Colors.orange),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
