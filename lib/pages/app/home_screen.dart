@@ -11,6 +11,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  
+  final Map<String, List<String>> boardImages = {
+    'Modern Indian Painting': [
+      'https://placebeard.it/640/480g',
+      'https://placebeard.it/640/480g',
+      'https://placebeard.it/640/480g',
+      'https://placebeard.it/640/480g',
+      'https://placebeard.it/640/480g',
+    ],
+  };
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +60,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          
+          const SizedBox(height: 20),
+         
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: _buildJoinedInviteRow(),
+          ),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -80,5 +99,84 @@ Widget _buildFilterChip(
         ],
       ],
     ),
+  );
+}
+Widget _buildJoinedInviteRow() {
+  const int avatarCount = 6;
+  const double avatarRadius = 20;
+  const double overlapOffset = 20;
+  final double totalWidth =
+      (avatarCount - 1) * overlapOffset + (avatarRadius * 2);
+
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      // Avatars
+      SizedBox(
+        height: avatarRadius * 2,
+        width: totalWidth,
+        child: Stack(
+          clipBehavior: Clip.none,
+          children: List.generate(avatarCount, (index) {
+            return Positioned(
+              left: index * overlapOffset,
+              child: CircleAvatar(
+                radius: avatarRadius,
+                backgroundImage: NetworkImage(
+                  'https://randomuser.me/api/portraits/men/${index + 10}.jpg',
+                ),
+              ),
+            );
+          }),
+        ),
+      ),
+
+      const SizedBox(width: 12),
+
+      // Right Column: "joined" + social icons in one row, and "Invite your friends" below
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Row for "joined" and icons
+            Row(
+              children: [
+                const Text(
+                  "joined",
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                ),
+                const SizedBox(width: 8),
+                Image.network(
+                  'https://cdn-icons-png.flaticon.com/24/145/145802.png',
+                  width: 24,
+                  height: 24,
+                ),
+                const SizedBox(width: 8),
+                Image.network(
+                  'https://cdn-icons-png.flaticon.com/24/145/145812.png',
+                  width: 24,
+                  height: 24,
+                ),
+                const SizedBox(width: 8),
+                Image.network(
+                  'https://cdn-icons-png.flaticon.com/24/145/145807.png',
+                  width: 24,
+                  height: 24,
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            const Text(
+              "Invite your friends",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
+                color: Colors.black54,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
   );
 }
