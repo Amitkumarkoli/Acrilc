@@ -94,4 +94,6 @@ class AppThemes {
       foregroundColor: Colors.white,
     ),
   );
+
+  static var textTheme;
 }
