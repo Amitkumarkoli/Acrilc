@@ -68,6 +68,52 @@ class _HomeScreenState extends State<HomeScreen> {
             child: _buildJoinedInviteRow(),
           ),
           const SizedBox(height: 20),
+          Expanded(
+            child: ListView.builder(
+              itemCount: boardImages.length,
+              itemBuilder: (context, index) {
+                String boardName = boardImages.keys.elementAt(index);
+                List<String> images = boardImages[boardName]!;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Text(
+                    //   boardName,
+                    //   style: Theme.of(context).textTheme.headlineSmall,
+                    // ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: images.length,
+                        itemBuilder: (context, imageIndex) {
+                          return Padding(
+                            padding: const EdgeInsets.only(right: 8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.network(images[imageIndex],
+                                    width: 170,
+                                    height: 150,
+                                    fit: BoxFit.cover,
+                                    
+                                  ),
+                                ),
+                                Text('IMAGE'),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
