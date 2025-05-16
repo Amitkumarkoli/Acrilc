@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:acrilc/widgets/customer_search.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,7 +17,19 @@ class _HomeScreenState extends State<HomeScreen> {
       (_) => 'https://placebeard.it/640/480g',
     ),
   };
-
+    final List<String> gridimages = [
+    'https://picsum.photos/id/238/600/600',
+    'https://picsum.photos/id/239/200/400',
+    'https://picsum.photos/id/240/700/500',
+    'https://picsum.photos/id/241/200/600',
+      'https://picsum.photos/id/239/200/400',
+    'https://picsum.photos/id/239/200/400',
+    'https://picsum.photos/id/240/700/500',
+    'https://picsum.photos/id/239/200/400',
+    'https://picsum.photos/id/240/700/500',
+    'https://picsum.photos/id/241/200/600',
+     'https://picsum.photos/id/239/200/400',
+  ];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -127,6 +140,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             ),
+                            const SizedBox(height: 8),
+                            Text(
+                              boardName,
+                              style: const TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 8),
+                            // GridView for images
+                        Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: MasonryGridView.count(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 8,
+                                crossAxisSpacing: 8,
+                                itemCount: gridimages.length,
+                                shrinkWrap: true,
+                                physics:
+                                    NeverScrollableScrollPhysics(), 
+                                itemBuilder: (context, index) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: Image.network(gridimages[index]),
+                                  );
+                                },
+                              ),
+                            ),
+
                           ],
                         );
                       },
