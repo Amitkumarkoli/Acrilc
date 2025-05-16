@@ -1,7 +1,6 @@
-import 'package:acrilc/widgets/customer_search.dart';
 import 'package:flutter/material.dart';
-import 'package:acrilc/constants/colors.dart';
-import 'package:acrilc/constants/themes.dart';
+import 'package:acrilc/widgets/customer_search.dart';
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,142 +10,152 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  
   final Map<String, List<String>> boardImages = {
-    'Modern Indian Painting': [
-      'https://placebeard.it/640/480g',
-      'https://placebeard.it/640/480g',
-      'https://placebeard.it/640/480g',
-      'https://placebeard.it/640/480g',
-      'https://placebeard.it/640/480g',
-    ],
+    'Modern Indian Painting': List.generate(
+      5,
+      (_) => 'https://placebeard.it/640/480g',
+    ),
   };
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // backgroundColor: Theme.of(context).primaryColor,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CustomSearchBar(),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          SizedBox(
-            height: 40,
-            child: Expanded(
-              child: ListView(
-                // This next line does the trick.
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  _buildFilterChip(showArrow: true, "For You", Theme.of(context)),
-                  const SizedBox(width: 8),
-                  _buildFilterChip("Craft", Theme.of(context)),
-                  const SizedBox(width: 8),
-                  _buildFilterChip("Mood Board", Theme.of(context)),
-                  const SizedBox(width: 8),
-                  _buildFilterChip("Painting", Theme.of(context)),
-                  const SizedBox(width: 8),
-                  _buildFilterChip("Photography", Theme.of(context)),
-                  const SizedBox(width: 8),
-                  _buildFilterChip("Sculpture", Theme.of(context)),
-                  const SizedBox(width: 8),
-                  _buildFilterChip("Digital Art", Theme.of(context)),
-                  
-                ],
+    return DefaultTabController(
+      length: 8,
+      child: Scaffold(
+        body: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomSearchBar(),
+            ),
+            const SizedBox(height: 20),
+            ButtonsTabBar(
+              backgroundColor: Colors.red,
+              unselectedBackgroundColor: Colors.grey[300],
+              unselectedLabelStyle: const TextStyle(color: Colors.black),
+              labelStyle: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              ),
+              borderColor: Colors.red,
+              unselectedBorderColor: const Color.fromARGB(255, 251, 250, 250),
+
+              tabs: const [
+                Tab(text: "For You"),
+                Tab(text: "Craft"),
+                Tab(text: "Mood Board"),
+                Tab(text: "Painting"),
+                Tab(text: "Photography"),
+                Tab(text: "Sculpture"),
+                Tab(text: "Digital Art"),
+                Tab(text: "Others"),
+              ],
+            ),
+            const SizedBox(height: 16),
+
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: _buildJoinedInviteRow(),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: TabBarView(
+                children: List.generate(6, (index) {
+                  if (index == 0) {
+                    // Main tab content
+                    return ListView.builder(
+                      itemCount: boardImages.length,
+                      itemBuilder: (context, boardIndex) {
+                        String boardName = boardImages.keys.elementAt(
+                          boardIndex,
+                        );
+                        List<String> images = boardImages[boardName]!;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 8),
+                            SizedBox(
+                              height: 200,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: images.length,
+                                itemBuilder: (context, imageIndex) {
+                                  return Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: 8.0,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  const Color.fromARGB(255, 42, 7, 7), // Card background color
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  blurRadius: 10,
+                                                  offset: Offset(0, 4),
+                                                ),
+                                              ],
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: Image.network(
+                                                images[imageIndex],
+
+                                                height: 150,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: const Text('IMAGE'),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  } else if (index == 1) {
+                    return const Center(child: Text("Craft"));
+                  } else if (index == 2) {
+                    return const Center(child: Text("Mood Board"));
+                  } else if (index == 3) {
+                    return const Center(child: Text("Painting"));
+                  } else if (index == 4) {
+                    return const Center(child: Text("Photography"));
+                  } else if (index == 5) {
+                    return const Center(child: Text("Sculpture"));
+                  } else if (index == 6) {
+                    return const Center(child: Text("Digital Art"));
+                  } else {
+                    return const Center(child: Text("Others"));
+                  }
+                }),
               ),
             ),
-          ),
-          
-          const SizedBox(height: 20),
-         
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: _buildJoinedInviteRow(),
-          ),
-          const SizedBox(height: 20),
-          Expanded(
-            child: ListView.builder(
-              itemCount: boardImages.length,
-              itemBuilder: (context, index) {
-                String boardName = boardImages.keys.elementAt(index);
-                List<String> images = boardImages[boardName]!;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Text(
-                    //   boardName,
-                    //   style: Theme.of(context).textTheme.headlineSmall,
-                    // ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: images.length,
-                        itemBuilder: (context, imageIndex) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(16),
-                                  child: Image.network(images[imageIndex],
-                                    width: 170,
-                                    height: 150,
-                                    fit: BoxFit.cover,
-                                    
-                                  ),
-                                ),
-                                Text('IMAGE'),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-Widget _buildFilterChip(
-  String label,
-  ThemeData theme, {
-  bool showArrow = false,
-}) {
-  return Container(
-    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-    decoration: BoxDecoration(
-      color: theme.cardColor,
-      borderRadius: BorderRadius.circular(20),
-    ),
-    child: Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(label, style: theme.textTheme.bodyMedium),
-        if (showArrow) ...[
-          const SizedBox(width: 4),
-          const Icon(
-            Icons.keyboard_arrow_down_rounded,
-            size: 18,
-            color: Colors.grey,
-          ),
-        ],
-      ],
-    ),
-  );
-}
 Widget _buildJoinedInviteRow() {
   const int avatarCount = 6;
   const double avatarRadius = 20;
