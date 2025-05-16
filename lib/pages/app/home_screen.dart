@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             ButtonsTabBar(
-
               backgroundColor: Colors.red,
               unselectedBackgroundColor: Colors.grey[300],
               unselectedLabelStyle: const TextStyle(color: Colors.black),
@@ -41,9 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               borderColor: Colors.red,
               unselectedBorderColor: const Color.fromARGB(255, 251, 250, 250),
-             
+
               tabs: const [
-                Tab(text: "For You",),
+                Tab(text: "For You"),
                 Tab(text: "Craft"),
                 Tab(text: "Mood Board"),
                 Tab(text: "Painting"),
@@ -54,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             const SizedBox(height: 16),
-          
+
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -83,24 +82,46 @@ class _HomeScreenState extends State<HomeScreen> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: images.length,
                                 itemBuilder: (context, imageIndex) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            16,
+                                  return Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                        right: 8.0,
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  const Color.fromARGB(255, 42, 7, 7), // Card background color
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.1),
+                                                  blurRadius: 10,
+                                                  offset: Offset(0, 4),
+                                                ),
+                                              ],
+                                            ),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                              child: Image.network(
+                                                images[imageIndex],
+
+                                                height: 150,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
                                           ),
-                                          child: Image.network(
-                                            images[imageIndex],
-                                            width: 170,
-                                            height: 150,
-                                            fit: BoxFit.cover,
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: const Text('IMAGE'),
                                           ),
-                                        ),
-                                        const Text('IMAGE'),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   );
                                 },
@@ -111,20 +132,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     );
                   } else if (index == 1) {
-                      return const Center(child: Text("Craft"));
-                    } else if (index == 2) {
-                      return const Center(child: Text("Mood Board"));
-                    } else if (index == 3) {
-                      return const Center(child: Text("Painting"));
-                    } else if (index == 4) {
-                      return const Center(child: Text("Photography"));
-                    } else if (index == 5) {
-                      return const Center(child: Text("Sculpture"));
-                    } else if (index == 6) {
-                      return const Center(child: Text("Digital Art"));
-                    } else {
-                      return const Center(child: Text("Others"));
-                    }
+                    return const Center(child: Text("Craft"));
+                  } else if (index == 2) {
+                    return const Center(child: Text("Mood Board"));
+                  } else if (index == 3) {
+                    return const Center(child: Text("Painting"));
+                  } else if (index == 4) {
+                    return const Center(child: Text("Photography"));
+                  } else if (index == 5) {
+                    return const Center(child: Text("Sculpture"));
+                  } else if (index == 6) {
+                    return const Center(child: Text("Digital Art"));
+                  } else {
+                    return const Center(child: Text("Others"));
+                  }
                 }),
               ),
             ),
@@ -214,5 +235,3 @@ Widget _buildJoinedInviteRow() {
     ],
   );
 }
-
-
