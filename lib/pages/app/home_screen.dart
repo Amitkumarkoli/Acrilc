@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(11.0),
               child: CustomSearchBar(),
             ),
             const SizedBox(height: 20),
@@ -68,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             const SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: _buildJoinedInviteRow(),
             ),
             const SizedBox(height: 20),
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.only(
-                                        right: 8.0,
+                                        left: 7.0,
                                       ),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
@@ -144,17 +144,20 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             const SizedBox(height: 8),
-                            Text(
-                              boardName,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                            Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text(
+                                boardName,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 8),
                             // GridView for images
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.all(12.0),
                               child: MasonryGridView.count(
                                 crossAxisCount: 2,
                                 mainAxisSpacing: 8,
@@ -282,7 +285,7 @@ Widget _buildJoinedInviteRow() {
 Widget _buildEqualWidthTab(String label) {
   return Tab(
     child: SizedBox(
-      width: 70, // Set the desired fixed width here
+      width: 70, 
       child: Center(
         child: Text(label),
       ),
