@@ -143,6 +143,28 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             ),
+                            const SizedBox(height: 2),
+                            Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: const Color(0xFFE34A1C),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                        ),
+                                        onPressed: () {}, // Empty function
+                                        child: Text('Read More'),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+
+
                             const SizedBox(height: 8),
                             Padding(
                               padding: const EdgeInsets.all(4.0),
