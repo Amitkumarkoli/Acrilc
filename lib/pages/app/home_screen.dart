@@ -270,19 +270,20 @@ Widget _buildEqualWidthTab(String label) {
   );
 }
 
-Widget _buildCar(){
+Widget _buildCar() {
   return SizedBox(
-    width: 160,
+    width: 200,
     height: 164,
     child: Stack(
       children: <Widget>[
         Card(
+          color: Colors.brown,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           elevation: 5,
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: Column(
             children: [
               SizedBox(
@@ -297,20 +298,42 @@ Widget _buildCar(){
           ),
         ),
         Positioned(
-          bottom: 0,
+          bottom: 5,
           left: 10,
-          child: SizedBox(
-            height: 50,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Title'),
-                Text('Subtitle')
-              ],
+          right: 10,
+          child: Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: SizedBox(
+              height: 40,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Title',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Handle order click
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      textStyle: const TextStyle(fontSize: 12),
+                      minimumSize: const Size(0, 30),
+                    ),
+                    child: const Text('Order Now'),
+                  ),
+                ],
+              ),
             ),
           ),
-        )
+        ),
       ],
     ),
   );
 }
+
