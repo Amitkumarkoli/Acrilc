@@ -17,18 +17,18 @@ class _HomeScreenState extends State<HomeScreen> {
       (_) => 'https://placebeard.it/640/480g',
     ),
   };
-    final List<String> gridimages = [
+  final List<String> gridimages = [
     'https://picsum.photos/id/238/600/600',
     'https://picsum.photos/id/239/200/400',
     'https://picsum.photos/id/240/700/500',
     'https://picsum.photos/id/241/200/600',
-      'https://picsum.photos/id/239/200/400',
+    'https://picsum.photos/id/239/200/400',
     'https://picsum.photos/id/239/200/400',
     'https://picsum.photos/id/240/700/500',
     'https://picsum.photos/id/239/200/400',
     'https://picsum.photos/id/240/700/500',
     'https://picsum.photos/id/241/200/600',
-     'https://picsum.photos/id/239/200/400',
+    'https://picsum.photos/id/239/200/400',
   ];
   @override
   Widget build(BuildContext context) {
@@ -53,16 +53,15 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               borderColor: Colors.red,
               unselectedBorderColor: const Color.fromARGB(255, 251, 250, 250),
-
-              tabs: const [
-                Tab(text: "For You"),
-                Tab(text: "Craft"),
-                Tab(text: "Mood Board"),
-                Tab(text: "Painting"),
-                Tab(text: "Photography"),
-                Tab(text: "Sculpture"),
-                Tab(text: "Digital Art"),
-                Tab(text: "Others"),
+              tabs: [
+                _buildEqualWidthTab("For You"),
+                _buildEqualWidthTab("Craft"),
+                _buildEqualWidthTab("Mood Board"),
+                _buildEqualWidthTab("Painting"),
+                _buildEqualWidthTab("Photography"),
+                _buildEqualWidthTab("Sculpture"),
+                _buildEqualWidthTab("Digital Art"),
+                _buildEqualWidthTab("Others"),
               ],
             ),
             const SizedBox(height: 16),
@@ -105,8 +104,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                         children: [
                                           Container(
                                             decoration: BoxDecoration(
-                                              color:
-                                                  const Color.fromARGB(255, 42, 7, 7), // Card background color
+                                              color: const Color.fromARGB(
+                                                255,
+                                                42,
+                                                7,
+                                                7,
+                                              ), // Card background color
                                               borderRadius:
                                                   BorderRadius.circular(16),
                                               boxShadow: [
@@ -150,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             const SizedBox(height: 8),
                             // GridView for images
-                        Padding(
+                            Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: MasonryGridView.count(
                                 crossAxisCount: 2,
@@ -158,8 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisSpacing: 8,
                                 itemCount: gridimages.length,
                                 shrinkWrap: true,
-                                physics:
-                                    NeverScrollableScrollPhysics(), 
+                                physics: NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) {
                                   return ClipRRect(
                                     borderRadius: BorderRadius.circular(12),
@@ -168,7 +170,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                               ),
                             ),
-
                           ],
                         );
                       },
@@ -275,5 +276,16 @@ Widget _buildJoinedInviteRow() {
         ),
       ),
     ],
+  );
+}
+
+Widget _buildEqualWidthTab(String label) {
+  return Tab(
+    child: SizedBox(
+      width: 70, // Set the desired fixed width here
+      child: Center(
+        child: Text(label),
+      ),
+    ),
   );
 }
