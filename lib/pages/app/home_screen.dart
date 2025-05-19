@@ -94,52 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 scrollDirection: Axis.horizontal,
                                 itemCount: images.length,
                                 itemBuilder: (context, imageIndex) {
-                                  return Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 7.0,
-                                      ),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromARGB(
-                                                255,
-                                                42,
-                                                7,
-                                                7,
-                                              ), // Card background color
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.black
-                                                      .withOpacity(0.1),
-                                                  blurRadius: 10,
-                                                  offset: Offset(0, 4),
-                                                ),
-                                              ],
-                                            ),
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(16),
-                                              child: Image.network(
-                                                images[imageIndex],
-
-                                                height: 150,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: const Text('IMAGE'),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
+                                  return _buildCar();
                                 },
                               ),
                             ),
@@ -311,6 +266,51 @@ Widget _buildEqualWidthTab(String label) {
       child: Center(
         child: Text(label),
       ),
+    ),
+  );
+}
+
+Widget _buildCar(){
+  return SizedBox(
+    width: 160,
+    height: 164,
+    child: Stack(
+      children: <Widget>[
+        Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 5,
+          margin: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              SizedBox(
+                width: 235,
+                height: 140,
+                child: Image.network(
+                  'https://placebeard.it/640/480g',
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 10,
+          child: SizedBox(
+            height: 50,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Title'),
+                Text('Subtitle')
+              ],
+            ),
+          ),
+        )
+      ],
     ),
   );
 }
