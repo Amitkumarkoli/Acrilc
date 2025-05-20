@@ -35,6 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return DefaultTabController(
       length: 8,
       child: Scaffold(
+        backgroundColor: Colors.brown[800],
         body: Column(
           children: [
             Padding(
@@ -43,16 +44,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             const SizedBox(height: 20),
             ButtonsTabBar(
-              backgroundColor: Colors.red,
-              unselectedBackgroundColor: Colors.grey[300],
+              backgroundColor: Color.fromARGB(198, 35, 10, 10),
+              unselectedBackgroundColor: const Color.fromARGB(255, 119, 117, 117),
               unselectedLabelStyle: const TextStyle(color: Colors.black),
               labelStyle: const TextStyle(
-                color: Colors.white,
+                color: Color.fromARGB(255, 110, 109, 109),
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
               borderColor: Colors.red,
-              unselectedBorderColor: const Color.fromARGB(255, 251, 250, 250),
+              unselectedBorderColor: const Color.fromARGB(255, 106, 105, 105),
               tabs: [
                 _buildEqualWidthTab("For You"),
                 _buildEqualWidthTab("Craft"),
@@ -106,13 +107,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Expanded(
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color(0xFFE34A1C),
+                                          backgroundColor: Color.fromARGB(198, 35, 10, 10),
                                           shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(10),
                                           ),
                                         ),
                                         onPressed: () {}, // Empty function
-                                        child: Text('Read More'),
+                                        child: Text('Read More',
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                        )),
                                       ),
                                     ),
                                   ],
@@ -264,7 +270,7 @@ Widget _buildEqualWidthTab(String label) {
     child: SizedBox(
       width: 70, 
       child: Center(
-        child: Text(label),
+        child: Text(label, style: const TextStyle(fontWeight: FontWeight.bold,color: Colors.white)),
       ),
     ),
   );
@@ -277,12 +283,12 @@ Widget _buildCar() {
     child: Stack(
       children: <Widget>[
         Card(
-          color: Colors.brown,
+          color: const Color.fromARGB(198, 35, 10, 10),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
-          elevation: 5,
+          elevation: 0,
           margin: const EdgeInsets.all(10),
           child: Column(
             children: [
@@ -313,6 +319,7 @@ Widget _buildCar() {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
+                      color: Colors.white,
                     ),
                   ),
                   ElevatedButton(
@@ -320,12 +327,13 @@ Widget _buildCar() {
                       // Handle order click
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orange,
+                      backgroundColor: const Color.fromARGB(255, 4, 4, 4),
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       textStyle: const TextStyle(fontSize: 12),
                       minimumSize: const Size(0, 30),
                     ),
-                    child: const Text('Order Now'),
+                    child: const Text('Order Now',
+                        style: TextStyle(color: Colors.white)),
                   ),
                 ],
               ),

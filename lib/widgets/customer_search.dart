@@ -21,11 +21,11 @@ class CustomSearchBar extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: 'Search art, artists, collections',
                 hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Colors.black38,
+                  color: Colors.white,
                 ),
-                prefixIcon: const Icon(Icons.search, color: Colors.black45),
+                prefixIcon: const Icon(Icons.search, color: Colors.white),
                 filled: true,
-                fillColor: Theme.of(context).cardColor,
+                fillColor: Color.fromARGB(198, 35, 10, 10),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
