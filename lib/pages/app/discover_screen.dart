@@ -25,22 +25,43 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
     _fetchTrendingPost();
   }
 
+  // void _fetchTrendingPost() async {
+  //   try {
+  //     List<Map<String, dynamic>>? data = await PostService.getTrendingPosts();
+  //     if (data != null) {
+  //       setState(() {
+  //         _trendingPosts = data;
+  //       });
+  //     }
+  //   } catch (e) {
+  //     if (mounted) alert(context, e.toString(), title: "Error", copy: true);
+  //   } finally {
+  //     setState(() {
+  //       _isLoading = false;
+  //     });
+  //   }
+  // }
+
+
+
+
+
+// to check the grid some random images
   void _fetchTrendingPost() async {
-    try {
-      List<Map<String, dynamic>>? data = await PostService.getTrendingPosts();
-      if (data != null) {
-        setState(() {
-          _trendingPosts = data;
-        });
-      }
-    } catch (e) {
-      if (mounted) alert(context, e.toString(), title: "Error", copy: true);
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
+  await Future.delayed(Duration(seconds: 1)); // simulate loading
+  List<Map<String, dynamic>> mockData = List.generate(20, (index) {
+    return {
+      '_id': 'post_$index',
+      'topPostURL': 'https://picsum.photos/id/${index + 100}/400/600',
+    };
+  });
+
+  setState(() {
+    _trendingPosts = mockData;
+    _isLoading = false;
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
