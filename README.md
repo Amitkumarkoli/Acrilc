@@ -7,7 +7,7 @@ Acrilc is a Flutter-based application that allows artists to showcase their artw
 
 ## 📱 Download APK
 
-[📦 Download the Latest APK](https://amitkumarkoli.github.io/Acrilc/app-release.apk)
+[📦 Download the Latest APK](https://Amitkumarkoli.github.io/Acrilc/Acrilc.apk)
 
 ---
 
