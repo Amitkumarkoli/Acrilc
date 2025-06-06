@@ -1,5 +1,5 @@
+import 'package:acrilc/widgets/customer_searchbar.dart';
 import 'package:flutter/material.dart';
-// import 'package:acrilc/widgets/customer_search.dart';
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -34,81 +34,86 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 8,
-      child: Scaffold(
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(11.0),
-              // child: CustomSearchBar(),
-            ),
-            const SizedBox(height: 20),
-            ButtonsTabBar(
-              backgroundColor: Colors.red,
-              unselectedBackgroundColor: Colors.grey[300],
-              unselectedLabelStyle: const TextStyle(color: Colors.black),
-              labelStyle: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(11.0),
+                child: CustomSearchBar(),
               ),
-              borderColor: Colors.red,
-              unselectedBorderColor: const Color.fromARGB(255, 251, 250, 250),
-              tabs: [
-                _buildEqualWidthTab("For You"),
-                _buildEqualWidthTab("Craft"),
-                _buildEqualWidthTab("Mood Board"),
-                _buildEqualWidthTab("Painting"),
-                _buildEqualWidthTab("Photography"),
-                _buildEqualWidthTab("Sculpture"),
-                _buildEqualWidthTab("Digital Art"),
-                _buildEqualWidthTab("Others"),
-              ],
-            ),
-            const SizedBox(height: 16),
-
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: _buildJoinedInviteRow(),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: TabBarView(
-                children: List.generate(6, (index) {
-                  if (index == 0) {
-                    // Main tab content
-                    return ListView.builder(
-                      itemCount: boardImages.length,
-                      itemBuilder: (context, boardIndex) {
-                        String boardName = boardImages.keys.elementAt(
-                          boardIndex,
-                        );
-                        List<String> images = boardImages[boardName]!;
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 8),
-                            SizedBox(
-                              height: 200,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: images.length,
-                                itemBuilder: (context, imageIndex) {
-                                  return _buildCar();
-                                },
+              const SizedBox(height: 20),
+              ButtonsTabBar(
+                backgroundColor: Colors.red,
+                unselectedBackgroundColor: Colors.grey[300],
+                unselectedLabelStyle: const TextStyle(color: Colors.black),
+                labelStyle: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+                borderColor: Colors.red,
+                unselectedBorderColor: const Color.fromARGB(255, 251, 250, 250),
+                tabs: [
+                  _buildEqualWidthTab("For You"),
+                  _buildEqualWidthTab("Craft"),
+                  _buildEqualWidthTab("Mood Board"),
+                  _buildEqualWidthTab("Painting"),
+                  _buildEqualWidthTab("Photography"),
+                  _buildEqualWidthTab("Sculpture"),
+                  _buildEqualWidthTab("Digital Art"),
+                  _buildEqualWidthTab("Others"),
+                ],
+              ),
+              const SizedBox(height: 16),
+        
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: _buildJoinedInviteRow(),
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: TabBarView(
+                  children: List.generate(6, (index) {
+                    if (index == 0) {
+                      // Main tab content
+                      return ListView.builder(
+                        itemCount: boardImages.length,
+                        itemBuilder: (context, boardIndex) {
+                          String boardName = boardImages.keys.elementAt(
+                            boardIndex,
+                          );
+                          List<String> images = boardImages[boardName]!;
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const SizedBox(height: 8),
+                              SizedBox(
+                                height: 200,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: images.length,
+                                  itemBuilder: (context, imageIndex) {
+                                    return _buildCar();
+                                  },
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 2),
-                            Padding(
+                              const SizedBox(height: 2),
+                              Padding(
                                 padding: const EdgeInsets.all(5.0),
                                 child: Row(
                                   children: [
                                     Expanded(
                                       child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
-                                          backgroundColor: const Color(0xFFE34A1C),
+                                          backgroundColor: const Color(
+                                            0xFFE34A1C,
+                                          ),
                                           shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius: BorderRadius.circular(
+                                              10,
+                                            ),
                                           ),
                                         ),
                                         onPressed: () {}, // Empty function
@@ -118,61 +123,61 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ],
                                 ),
                               ),
-
-
-                            const SizedBox(height: 8),
-                            Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text(
-                                boardName,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+        
+                              const SizedBox(height: 8),
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  boardName,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            ),
-                            const SizedBox(height: 8),
-                            // GridView for images
-                            Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: MasonryGridView.count(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 8,
-                                crossAxisSpacing: 8,
-                                itemCount: gridimages.length,
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) {
-                                  return ClipRRect(
-                                    borderRadius: BorderRadius.circular(12),
-                                    child: Image.network(gridimages[index]),
-                                  );
-                                },
+                              const SizedBox(height: 8),
+                              // GridView for images
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: MasonryGridView.count(
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 8,
+                                  crossAxisSpacing: 8,
+                                  itemCount: gridimages.length,
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(12),
+                                      child: Image.network(gridimages[index]),
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else if (index == 1) {
-                    return const Center(child: Text("Craft"));
-                  } else if (index == 2) {
-                    return const Center(child: Text("Mood Board"));
-                  } else if (index == 3) {
-                    return const Center(child: Text("Painting"));
-                  } else if (index == 4) {
-                    return const Center(child: Text("Photography"));
-                  } else if (index == 5) {
-                    return const Center(child: Text("Sculpture"));
-                  } else if (index == 6) {
-                    return const Center(child: Text("Digital Art"));
-                  } else {
-                    return const Center(child: Text("Others"));
-                  }
-                }),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (index == 1) {
+                      return const Center(child: Text("Craft"));
+                    } else if (index == 2) {
+                      return const Center(child: Text("Mood Board"));
+                    } else if (index == 3) {
+                      return const Center(child: Text("Painting"));
+                    } else if (index == 4) {
+                      return const Center(child: Text("Photography"));
+                    } else if (index == 5) {
+                      return const Center(child: Text("Sculpture"));
+                    } else if (index == 6) {
+                      return const Center(child: Text("Digital Art"));
+                    } else {
+                      return const Center(child: Text("Others"));
+                    }
+                  }),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -260,14 +265,7 @@ Widget _buildJoinedInviteRow() {
 }
 
 Widget _buildEqualWidthTab(String label) {
-  return Tab(
-    child: SizedBox(
-      width: 70, 
-      child: Center(
-        child: Text(label),
-      ),
-    ),
-  );
+  return Tab(child: SizedBox(width: 70, child: Center(child: Text(label))));
 }
 
 Widget _buildCar() {
@@ -310,10 +308,7 @@ Widget _buildCar() {
                 children: [
                   const Text(
                     'Title',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   ElevatedButton(
                     onPressed: () {
